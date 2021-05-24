@@ -1,0 +1,111 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-openhab
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/home/mtw/daten/openhab"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pv-openhab
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openhab
+  labels:
+    app: openhab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openhab
+  template:
+    metadata:
+      labels:
+        app: openhab
+    spec:
+      containers:
+      - name: openhab
+        image: openhab/openhab
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        - containerPort: 8443
+          name: https
+          protocol: TCP
+        - containerPort: 8101
+          name: console
+          protocol: TCP
+        volumeMounts:
+        - name: etc-localtime
+          mountPath: /etc/localtime
+          readOnly: true
+        - name: openhab
+          mountPath: /openhab/conf
+          subPath: conf
+          readOnly: false
+        - name: openhab
+          mountPath: /openhab/userdata
+          subPath: userdata
+          readOnly: false
+        - name: openhab
+          mountPath: /openhab/addons
+          subPath: addons
+          readOnly: false
+        - name: openhab
+          mountPath: /openhab/.java
+          subPath: java
+          readOnly: false
+        - name: openhab
+          mountPath: /openhab/.karaf
+          subPath: karaf
+          readOnly: false
+      volumes:
+      - name: etc-localtime
+        hostPath:
+          path: /usr/share/zoneinfo/Europe/Berlin
+      - name: openhab
+        persistentVolumeClaim:
+          claimName: pv-openhab
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openhab
+spec:
+  selector:
+    app: openhab
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: http
+      name: openhab-http
+    - protocol: TCP
+      port: 8443
+      targetPort: https
+      name: openhab-https
+    - protocol: TCP
+      port: 8101
+      targetPort: console
+      name: openhab-console
+  type: LoadBalancer 
+  loadBalancerIP: 192.168.188.83
