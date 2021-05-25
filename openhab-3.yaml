@@ -65,9 +65,6 @@ spec:
           subPath: karaf
           readOnly: false
       volumes:
-      - name: etc-localtime
-        hostPath:
-          path: /usr/share/zoneinfo/Americas/Los_Angeles
       - name: openhab
         persistentVolumeClaim:
           claimName: pv-openhab
