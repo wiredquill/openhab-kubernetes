@@ -41,9 +41,6 @@ spec:
           name: console
           protocol: TCP
         volumeMounts:
-        - name: etc-localtime
-          mountPath: /etc/localtime
-          readOnly: true
         - name: openhab
           mountPath: /openhab/conf
           subPath: conf
