@@ -28,7 +28,7 @@ spec:
         app: openhab
     spec:
       initContainers:
-        - name: clone-repo
+      - name: clone-repo
         image: alpine/git
         command:
           - git
