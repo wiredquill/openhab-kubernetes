@@ -107,4 +107,4 @@ spec:
       port: 8101
       targetPort: console
       name: openhab-console
-  type: LoadBalancer 
+  type: LoadBalancer
