@@ -61,7 +61,7 @@ spec:
             - -c
             - watch -n 60 git pull
           workingDir: /usr/share/nginx/html
-        volumeMounts:
+      volumeMounts:
         - name: openhab
           mountPath: /openhab/conf
           subPath: conf
