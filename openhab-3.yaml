@@ -28,7 +28,7 @@ spec:
         app: openhab
     spec:
       initContainers:
-      - name: clone-repo
+        - name: clone-repo
         image: alpine/git
         command:
           - git
@@ -43,8 +43,8 @@ spec:
             readOnly: false
       containers:
         - name: openhab
-        image: openhab/openhab
-        ports:
+          image: openhab/openhab
+          ports:
         - containerPort: 8080
           name: http
           protocol: TCP
