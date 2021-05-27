@@ -28,9 +28,9 @@ spec:
         app: openhab
     spec:
       initContainers:
-      - name: clone-repo
-        image: alpine/git
-        command:
+          name: clone-repo
+          image: alpine/git
+          command:
           - git
           - clone
           - --progress
@@ -45,15 +45,15 @@ spec:
         - name: openhab
           image: openhab/openhab
           ports:
-        - containerPort: 8080
-          name: http
-          protocol: TCP
-        - containerPort: 8443
-          name: https
-          protocol: TCP
-        - containerPort: 8101
-          name: console
-          protocol: TCP
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          - containerPort: 8443
+            name: https
+            protocol: TCP
+          - containerPort: 8101
+            name: console
+            protocol: TCP
         - name: refresh
           image: alpine/git
           command:
