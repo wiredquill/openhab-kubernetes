@@ -10,8 +10,8 @@ spec:
         - git
         - clone
         - --progress
-        - https://github.com/peterj/simple-http-page.git
-        - /usr/share/nginx/html
+        - http://detritus.wiredquill.com:30000/wiredquill/openhab3.git
+        - /openhab/conf
       volumeMounts:
         - name: web
           mountPath: "/usr/share/nginx/html"
