@@ -42,7 +42,7 @@ spec:
               subPath: conf
               readOnly: false
       containers:
-      - name: openhab
+        - name: openhab
         image: openhab/openhab
         ports:
         - containerPort: 8080
