@@ -54,6 +54,13 @@ spec:
         - containerPort: 8101
           name: console
           protocol: TCP
+        - name: refresh
+          image: alpine/git
+          command:
+            - sh
+            - -c
+            - watch -n 60 git pull
+          workingDir: /usr/share/nginx/html
         volumeMounts:
         - name: openhab
           mountPath: /openhab/conf
@@ -75,16 +82,6 @@ spec:
           mountPath: /openhab/.karaf
           subPath: karaf
           readOnly: false
-        - name: refresh
-          image: alpine/git
-          command:
-            - sh
-            - -c
-            - watch -n 60 git pull
-          workingDir: /usr/share/nginx/html
-          volumeMounts:
-            - name: openhab
-              mountPath: "/openhab/conf"
       volumes:
       - name: openhab
         persistentVolumeClaim:
