@@ -83,8 +83,8 @@ spec:
           subPath: karaf
           readOnly: false
       volumes:
-      - name: openhab
-        persistentVolumeClaim:
+        - name: openhab
+          persistentVolumeClaim:
           claimName: pv-openhab
 ---
 apiVersion: v1
