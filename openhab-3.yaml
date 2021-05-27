@@ -28,19 +28,19 @@ spec:
         app: openhab
     spec:
       initContainers:
-        - name: clone-repo
-          image: alpine/git
-          command:
-            - git
-            - clone
-            - --progress
-            - http://detritus.wiredquill.com:30000/wiredquill/openhab3.git
-            - /openhab/conf
-          volumeMounts:
-            - name: openhab
-              mountPath: /openhab/conf
-              subPath: conf
-              readOnly: false
+      - name: clone-repo
+        image: alpine/git
+        command:
+          - git
+          - clone
+          - --progress
+          - http://detritus.wiredquill.com:30000/wiredquill/openhab3.git
+          - /openhab/conf
+        volumeMounts:
+          - name: openhab
+            mountPath: /openhab/conf
+            subPath: conf
+            readOnly: false
       containers:
         - name: openhab
         image: openhab/openhab
